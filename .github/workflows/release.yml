@@ -1,0 +1,37 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode_15.4.app
+
+      - name: Build .app bundle
+        run: ./scripts/build-app.sh
+
+      - name: Create DMG
+        run: |
+          brew install create-dmg
+          mkdir -p dist
+          create-dmg \
+            --volname "PasteRecord" \
+            --window-size 480 320 \
+            --icon-size 96 \
+            --app-drop-link 360 160 \
+            --icon "PasteRecord.app" 120 160 \
+            "dist/PasteRecord-${GITHUB_REF_NAME}.dmg" \
+            "dist/PasteRecord.app"
+
+      - name: Upload release asset
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/PasteRecord-*.dmg
+          generate_release_notes: true
