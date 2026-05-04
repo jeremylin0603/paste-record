@@ -25,7 +25,7 @@ APP_NAME="PasteRecord"
 DIST_DIR="dist"
 APP_BUNDLE="$DIST_DIR/$APP_NAME.app"
 
-echo "Building $APP_NAME ($CONFIG)…"
+echo "Building $APP_NAME ($CONFIG)..."
 swift build -c "$CONFIG" --arch arm64 --arch x86_64
 
 BIN_PATH="$(swift build -c "$CONFIG" --arch arm64 --arch x86_64 --show-bin-path)/$APP_NAME"
@@ -34,7 +34,7 @@ if [ ! -f "$BIN_PATH" ]; then
     exit 1
 fi
 
-echo "Assembling $APP_BUNDLE…"
+echo "Assembling $APP_BUNDLE..."
 rm -rf "$APP_BUNDLE"
 mkdir -p "$APP_BUNDLE/Contents/MacOS"
 mkdir -p "$APP_BUNDLE/Contents/Resources"

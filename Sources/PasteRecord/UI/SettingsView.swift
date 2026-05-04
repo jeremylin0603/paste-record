@@ -23,7 +23,7 @@ struct SettingsView: View {
                 }
             }
             Section {
-                Text("PasteRecord 版本 0.1.0")
+                Text("PasteRecord 版本 0.1.1")
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
